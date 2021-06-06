@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "author": "bpeldi2oerkd8",
-  "description": "A simple helpful robot for your Company",
+  "description": "出席登録用のbot (slack)",
   "dependencies": {
     "hubot": "^3.3.2",
     "hubot-diagnostics": "^1.0.0",
@@ -13,6 +13,6 @@
     "hubot-slack": "^4.8.1"
   },
   "engines": {
-    "node": "~10"
+    "node": "^14"
   }
 }
