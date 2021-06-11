@@ -66,12 +66,13 @@ function updateAvailability(msg, roomId, slackId, dateString, availability){
     }
 
     const data = JSON.parse(body);
+    const availabilityStatus = ['欠席', '不明', '出席'];
     if(data.status === 'OK'){
-      msg.send(data.status + '\n' + data.data.scheduleId + '\n' + data.data.userId + '\n' 
-        + data.data.dateId + '\n' + data.data.availability);
+      msg.send('出欠更新完了：' + '<@' + data.data.slackId + '> さんの' 
+        + data.data.date + 'の予定は　' + availabilityStatus[data.data.availability] + '　です');
     } 
     else {
-      msg.send(data.status + '\n' + data.error.messages);
+      msg.send('出欠更新失敗：' + '\n' + data.error.messages.join('\n'));
     }
   });
 }
