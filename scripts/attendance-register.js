@@ -4,9 +4,10 @@
 //   ボット名 出席     - 出席 を登録
 //   ボット名 欠席     - 欠席 を登録
 //   ボット名 不明     - 不明 を登録
+//   ボット名 確認     - 出欠情報を確認
 
 'use strict';
-const api_url = process.env.ATTENDANCE_UPDATE_URL || require('../secret_info/api_url').ATTENDANCE_UPDATE_URL;
+const api_url = process.env.ATTENDANCE_API_URL || require('../secret_info/api_url').ATTENDANCE_API_URL;
 module.exports = robot => {
   robot.respond(/出席[ 　]+((1[0-2]|[1-9])\/([12][0-9]|3[01]|[1-9]))/i, msg => {
     const roomId = msg.envelope.room;
@@ -40,6 +41,16 @@ module.exports = robot => {
     const availability = 1; //不明
     updateAvailability(msg, roomId, slackId, dateString, availability);
   });
+
+  robot.respond(/確認[ 　]+((1[0-2]|[1-9])\/([12][0-9]|3[01]|[1-9]))/i, msg => {
+    const roomId = msg.envelope.room;
+    const slackId = msg.message.user.id;
+
+    const date = msg.match[1].trim();
+    let dateString = date2dateString(date);
+
+    confirmAvailability(msg, roomId, slackId, dateString);
+  });
 };
 
 function date2dateString(date) {
@@ -61,7 +72,7 @@ function updateAvailability(msg, roomId, slackId, dateString, availability){
   .header('Content-Type', 'application/json')
   .post(param) ((err, res, body) => {
     if(err) {
-      msg.send("Error :( " + err);
+      msg.send(err);
       return;
     }
 
@@ -73,6 +84,28 @@ function updateAvailability(msg, roomId, slackId, dateString, availability){
     } 
     else {
       msg.send('出欠更新失敗：' + '\n' + data.error.messages.join('\n'));
+    }
+  });
+}
+
+function confirmAvailability(msg, roomId, slackId, dateString){
+  const confirm_url = api_url + '/' + roomId + '/users/' + slackId + '/dates/' + dateString;
+  
+  msg.http(confirm_url)
+  .get() ((err, res, body) => {
+    if(err) {
+      msg.send(err);
+      return;
+    }
+
+    const data = JSON.parse(body);
+    const availabilityStatus = ['欠席', '不明', '出席'];
+    if(data.status === 'OK'){
+      msg.send('出欠確認成功：' + '<@' + data.data.slackId + '> さんの' 
+        + data.data.date + 'の予定は　' + availabilityStatus[data.data.availability] + '　です');
+    } 
+    else {
+      msg.send('出欠確認失敗：' + '\n' + data.error.messages.join('\n'));
     }
   });
 }
