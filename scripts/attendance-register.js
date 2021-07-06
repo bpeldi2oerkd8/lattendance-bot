@@ -63,12 +63,18 @@ function date2dateString(date) {
 }
 
 function updateAvailability(msg, roomId, slackId, dateString, availability){
-  const update_url = api_url + '/' + roomId + '/users/' + slackId + '/dates/' + dateString;
+  const login_url = api_url + '/login';
+  const update_url = api_url + '/schedules/' + roomId + '/users/' + slackId + '/dates/' + dateString;
+  const roomToken = process.env.HUBOT_ROOM_TOKEN  || require('../secret_info/room_token').HUBOT_ROOM_TOKEN;
   const param = JSON.stringify({
+    roomId: roomId,
+    roomToken: roomToken
+  });
+  const param2 = JSON.stringify({
     availability: availability
   });
-    
-  msg.http(update_url)
+
+  msg.http(login_url)
   .header('Content-Type', 'application/json')
   .post(param) ((err, res, body) => {
     if(err) {
@@ -77,35 +83,75 @@ function updateAvailability(msg, roomId, slackId, dateString, availability){
     }
 
     const data = JSON.parse(body);
-    const availabilityStatus = ['欠席', '不明', '出席'];
     if(data.status === 'OK'){
-      msg.send('出欠更新完了：' + '<@' + data.data.slackId + '> さんの' 
-        + data.data.date + 'の予定は　' + availabilityStatus[data.data.availability] + '　です');
-    } 
+      const token = data.data.token;
+      msg.http(update_url)
+      .header('Content-Type', 'application/json')
+      .header('Authorization', `Bearer ${token}`)
+      .post(param2) ((err, res, body) => {
+        if(err) {
+          msg.send(err);
+          return;
+        }
+      
+        const data2 = JSON.parse(body);
+        const availabilityStatus = ['欠席', '不明', '出席'];
+        if(data2.status === 'OK'){
+          msg.send('出欠更新完了：' + '<@' + data2.data.slackId + '> さんの' 
+            + data2.data.date + 'の予定は　' + availabilityStatus[data2.data.availability] + '　です');
+        } 
+        else {
+          msg.send('出欠更新失敗：' + '\n' + data2.error.messages.join('\n'));
+        }
+      });
+    }
     else {
-      msg.send('出欠更新失敗：' + '\n' + data.error.messages.join('\n'));
+      msg.send('認証失敗：' + '\n' + data.error.messages.join('\n'));
     }
   });
 }
 
 function confirmAvailability(msg, roomId, slackId, dateString){
-  const confirm_url = api_url + '/' + roomId + '/users/' + slackId + '/dates/' + dateString;
-  
-  msg.http(confirm_url)
-  .get() ((err, res, body) => {
+  const login_url = api_url + '/login';
+  const confirm_url = api_url + '/schedules/' + roomId + '/users/' + slackId + '/dates/' + dateString;
+  const roomToken = process.env.HUBOT_ROOM_TOKEN  || require('../secret_info/room_token').HUBOT_ROOM_TOKEN;
+  const param = JSON.stringify({
+    roomId: roomId,
+    roomToken: roomToken
+  });
+
+  msg.http(login_url)
+  .header('Content-Type', 'application/json')
+  .post(param) ((err, res, body) => {
     if(err) {
       msg.send(err);
       return;
     }
 
     const data = JSON.parse(body);
-    const availabilityStatus = ['欠席', '不明', '出席'];
     if(data.status === 'OK'){
-      msg.send('出欠確認成功：' + '<@' + data.data.slackId + '> さんの' 
-        + data.data.date + 'の予定は　' + availabilityStatus[data.data.availability] + '　です');
-    } 
+      const token = data.data.token;
+      msg.http(confirm_url)
+      .header('Authorization', `Bearer ${token}`)
+      .get() ((err, res, body) => {
+        if(err) {
+          msg.send(err);
+          return;
+        }
+      
+        const data2 = JSON.parse(body);
+        const availabilityStatus = ['欠席', '不明', '出席'];
+        if(data2.status === 'OK'){
+          msg.send('出欠確認成功：' + '<@' + data2.data.slackId + '> さんの' 
+            + data2.data.date + 'の予定は　' + availabilityStatus[data2.data.availability] + '　です');
+        } 
+        else {
+          msg.send('出欠確認失敗：' + '\n' + data2.error.messages.join('\n'));
+        }
+      });
+    }
     else {
-      msg.send('出欠確認失敗：' + '\n' + data.error.messages.join('\n'));
+      msg.send('認証失敗：' + '\n' + data.error.messages.join('\n'));
     }
   });
 }
