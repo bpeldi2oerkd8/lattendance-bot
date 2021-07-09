@@ -1,14 +1,22 @@
 // Description:
-//  出欠登録可能なボットです
+//  出欠登録可能なボットです(Slack)
 // Commands:
-//   ボット名 出席     - 出席 を登録
-//   ボット名 欠席     - 欠席 を登録
-//   ボット名 不明     - 不明 を登録
-//   ボット名 確認     - 出欠情報を確認
+//   ボット名 使い方                    - 使い方の確認
+//   ボット名 出席 日付（月/日の形式で） - 出席 を登録
+//   ボット名 欠席 日付（月/日の形式で） - 欠席 を登録
+//   ボット名 不明 日付（月/日の形式で） - 不明 を登録
+//   ボット名 確認 日付（月/日の形式で） - 出欠情報を確認
 
 'use strict';
 const api_url = process.env.ATTENDANCE_API_URL || require('../secret_info/api_url').ATTENDANCE_API_URL;
 module.exports = robot => {
+  robot.respond(/使い方/i, msg => {
+    msg.send('<形式> @[ボット名][コマンド名][半角または全角のスペース1つ以上][日付(月/日)]' + '\n'
+     + '<使えるコマンド名>' + '\n' + '出席：出席と登録' + '\n' + '欠席：欠席と登録' + '\n' 
+     + '不明：出欠予定不明と登録' + '\n' + '確認：出欠情報の確認' + '\n'
+     + '例）@lattendance-bot 出席 1/12');
+  });
+
   robot.respond(/出席[ 　]+((1[0-2]|[1-9])\/([12][0-9]|3[01]|[1-9]))/i, msg => {
     const roomId = msg.envelope.room;
     const slackId = msg.message.user.id;

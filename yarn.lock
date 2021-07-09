@@ -509,7 +509,7 @@ hubot-rules@^1.0.0:
   resolved "https://registry.yarnpkg.com/hubot-rules/-/hubot-rules-1.0.0.tgz#35a5d0acd27a3fa873e796ba29f0928f2eb8398c"
   integrity sha512-IXeTYp6aK25Hgio8ezYr9vruLt1dICL9+kImaXefbfanSjNiNDvltNZfwANqeBx4Zm92A6yi36XxbWR5ZS5kNg==
 
-hubot-slack@^4.8.1:
+hubot-slack@^4.9.0:
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/hubot-slack/-/hubot-slack-4.9.0.tgz#5b22caf5dd398cc80d5c2f1c2ec16b22f777fa8d"
   integrity sha512-liNHxyii/XZe2ypXP8IEPas5paJwVVRVZYMcVy3cHlIYzRaY+99ayBptEI+KWfqzhzxnLGV2aGjHUjolBsl0iA==
