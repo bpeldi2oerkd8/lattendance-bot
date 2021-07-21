@@ -80,7 +80,9 @@ git push heroku main:main
 ```
 @[ボット名]使い方
 ```
-![bot_使い方](https://user-images.githubusercontent.com/64352857/126032663-bf80e597-35c1-43f2-81d2-3441ea2874ca.jpg)
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/64352857/126032663-bf80e597-35c1-43f2-81d2-3441ea2874ca.jpg" width="500">
+</div>
 
 
 ## ボットの再起動
