@@ -11,7 +11,7 @@ Hubotを使用
 事前に設定を行うことにより、Slack上でbotにメッセージを送信するだけで出欠の登録・確認が可能です。  
 
 ## デモ
-動画を入れる
+https://user-images.githubusercontent.com/64352857/126032642-d9468000-f3bf-41ae-8251-65bba3aeb469.mp4
 
 ## 事前準備
 1.このリポジトリをダウンロードする  
@@ -80,7 +80,8 @@ git push heroku main:main
 ```
 @[ボット名]使い方
 ```
-結果の画像を入れる
+![bot_使い方](https://user-images.githubusercontent.com/64352857/126032663-bf80e597-35c1-43f2-81d2-3441ea2874ca.jpg)
+
 
 ## ボットの再起動
 ボットを再起動する際は、 `heroku restart` とコマンドを打ってください。
