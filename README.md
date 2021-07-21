@@ -31,17 +31,28 @@ lattendance上の連携したい予定ページを開き、「Slackと連携す�
 発行されたトークンをコピーし、環境変数`HUBOT_ROOM_TOKEN`として使うため、保存する。  
 
 ![Slack連携2](https://user-images.githubusercontent.com/64352857/125194707-66545100-e28d-11eb-8079-abc4254b8f19.jpg)
-4.Slack上にHubotを追加  
+
+5.Slack上にHubotを追加  
 右上のアイコンをクリックし、「インテグレーション」→「アプリを追加」をクリック（タップ）  
 図を入れる  
+「Appディレクトリを表示」をクリック（タップ）  
+図を入れる  
+検索バーに「hubot」を入力し、検索結果で表示された「Hubot」をクリック（タップ）  
+図を入れる  
+「Slackに追加」をクリック（タップ）  
+図を入れる  
+設定したいボット名を入力し(ex. lattendance-bot)、「hubotインテグレーションの追加」をクリック（タップ）  
+図を入れる  
+表示されたトークンを次のステップで使用するために保存する  
+図を入れる  
 
-5.環境変数のセット  
+6.環境変数のセット  
 ```bash
-heroku config:set HUBOT_SLACK_TOKEN='4で取得したトークン'
+heroku config:set HUBOT_SLACK_TOKEN='5で取得したトークン'
 heroku config:set ATTENDANCE_API_URL='lattendanceのAPIのURL(例. https://example.com/api/v1)'  
 heroku config:set HUBOT_ROOM_TOKEN='Step4で保存したチャンネルのトークン'  
 ```
-6.Heroku環境へのプッシュ  
+7.Heroku環境へのプッシュ  
 ```bash
 git push heroku main:main
 ```
@@ -72,7 +83,7 @@ git push heroku main:main
 結果の画像を入れる
 
 ## ボットの再起動
-ボットを再起動する際は、 `heroku restart` と入力してください。
+ボットを再起動する際は、 `heroku restart` とコマンドを打ってください。
 
 ## デプロイ環境
 - Heroku
