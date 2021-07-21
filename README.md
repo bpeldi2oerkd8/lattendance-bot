@@ -33,18 +33,29 @@ lattendance上の連携したい予定ページを開き、「Slackと連携す�
 ![Slack連携2](https://user-images.githubusercontent.com/64352857/125194707-66545100-e28d-11eb-8079-abc4254b8f19.jpg)
 
 5.Slack上にHubotを追加  
-右上のアイコンをクリックし、「インテグレーション」→「アプリを追加」をクリック（タップ）  
-図を入れる  
-「Appディレクトリを表示」をクリック（タップ）  
-図を入れる  
-検索バーに「hubot」と入力し、検索結果で表示された「Hubot」をクリック（タップ）  
-図を入れる  
-「Slackに追加」をクリック（タップ）  
-図を入れる  
-設定したいボット名を入力し(ex. lattendance-bot)、「Hubotインテグレーションの追加」をクリック（タップ）  
-図を入れる  
+出欠登録に用いるbotを追加したいチャンネル上で、右上のアイコンをクリックし、「インテグレーション」→「アプリを追加する」をクリック  
+
+![hubot追加手順1](https://user-images.githubusercontent.com/64352857/126505167-025d1f71-75d3-4abe-8f37-87190417542d.jpg)
+
+「Appディレクトリを表示」をクリック  
+
+![hubot追加手順2](https://user-images.githubusercontent.com/64352857/126505387-b936d270-bcff-49a0-8a2b-5b9ddcf9d981.jpg)
+
+検索バーに「hubot」と入力し、検索結果で表示された「Hubot」をクリック  
+
+![hubot追加手順3](https://user-images.githubusercontent.com/64352857/126505474-b23d7542-9ce4-40c5-bc2d-4fa555de40be.jpg)
+
+「Slackに追加」をクリック  
+
+![hubot追加手順4](https://user-images.githubusercontent.com/64352857/126505918-4ad14e24-0ec5-47e2-bc07-97c79fc694ea.jpg)
+
+設定したいボット名を入力し(ex. lattendance-bot)、「Hubotインテグレーションの追加」をクリック  
+
+![hubot追加手順5](https://user-images.githubusercontent.com/64352857/126506106-b1f2434c-de8b-467d-a591-5ca356fe430f.jpg)
+
 表示されたトークンを次のステップで使用するために保存する  
-図を入れる  
+
+![hubot追加手順6](https://user-images.githubusercontent.com/64352857/126506221-c4c9261f-a6d3-44c2-a446-448e2a81df04.jpg)
 
 6.環境変数のセット  
 ```bash
@@ -72,17 +83,13 @@ git push heroku main:main
 @lattendance-bot 出席　7/1
 ```
 正常に完了した場合、以下のように登録が完了したというメッセージがbotから返され、lattendance上の出欠情報も更新されます。  
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/64352857/125194309-a61a3900-e28b-11eb-8a10-3d5e5d003a9d.jpg" width="500">
-</div>
+![bot結果](https://user-images.githubusercontent.com/64352857/125194309-a61a3900-e28b-11eb-8a10-3d5e5d003a9d.jpg)
 
 また、以下の形式でメッセージを送ることで、使い方の確認ができます。  
 ```
 @[ボット名]使い方
 ```
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/64352857/126032663-bf80e597-35c1-43f2-81d2-3441ea2874ca.jpg" width="500">
-</div>
+![bot使い方](https://user-images.githubusercontent.com/64352857/126032663-bf80e597-35c1-43f2-81d2-3441ea2874ca.jpg)
 
 
 ## ボットの再起動
