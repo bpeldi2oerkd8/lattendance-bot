@@ -37,18 +37,18 @@ lattendance上の連携したい予定ページを開き、「Slackと連携す�
 図を入れる  
 「Appディレクトリを表示」をクリック（タップ）  
 図を入れる  
-検索バーに「hubot」を入力し、検索結果で表示された「Hubot」をクリック（タップ）  
+検索バーに「hubot」と入力し、検索結果で表示された「Hubot」をクリック（タップ）  
 図を入れる  
 「Slackに追加」をクリック（タップ）  
 図を入れる  
-設定したいボット名を入力し(ex. lattendance-bot)、「hubotインテグレーションの追加」をクリック（タップ）  
+設定したいボット名を入力し(ex. lattendance-bot)、「Hubotインテグレーションの追加」をクリック（タップ）  
 図を入れる  
 表示されたトークンを次のステップで使用するために保存する  
 図を入れる  
 
 6.環境変数のセット  
 ```bash
-heroku config:set HUBOT_SLACK_TOKEN='5で取得したトークン'
+heroku config:set HUBOT_SLACK_TOKEN='Step5で保存したトークン'
 heroku config:set ATTENDANCE_API_URL='lattendanceのAPIのURL(例. https://example.com/api/v1)'  
 heroku config:set HUBOT_ROOM_TOKEN='Step4で保存したチャンネルのトークン'  
 ```
